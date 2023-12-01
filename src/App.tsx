@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react'
+import InputField from './components/InputField';
+import { Todo } from './types/types';
 
-function App() {
+const App: React.FC = () => {
+
+  const [todo, setTodo] = useState<string>("")
+  const [todos, setTodos] = useState<Todo[]>([])
+
+  function handleCreateTodo(e:React.FormEvent) {
+    e.preventDefault();
+    if(todo)
+    setTodos([...todos, {id:Date.now(),todo,isDone:false}])
+  }
+
+  console.log(todos)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <span className='heading'>Taskify</span>
+      <InputField todo={todo} setTodo={setTodo} handleCreateTodo={handleCreateTodo}/>
+      <ul>{todos.map((i) => (
+        <li key={i.id}>{i.todo}</li>
+      ))}</ul>
     </div>
   );
 }
