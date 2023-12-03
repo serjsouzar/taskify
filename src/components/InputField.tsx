@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./styles.css";
 
 interface InputProps {
@@ -8,9 +8,16 @@ interface InputProps {
 }
 
 const InputField = ({ todo, setTodo, handleCreateTodo }: InputProps) => {
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
   return (
-    <form className="input" onSubmit={handleCreateTodo}>
+    <form className="input" onSubmit={(e) => {
+        handleCreateTodo(e)
+        inputRef.current?.blur()  
+        }}>
       <input
+        ref={inputRef}
         className="input__box"
         type="text"
         value={todo}

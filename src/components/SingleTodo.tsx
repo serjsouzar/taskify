@@ -15,6 +15,7 @@ const SingleTodo = ({ todo, todos, setTodos }: SingleTodoProps) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editTodo, setEditTodo] = useState<string>("")
 
+
   function handleDelete(id: number) {
     setTodos(todos.filter((todo) => todo.id !== id));
   }
