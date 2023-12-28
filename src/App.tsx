@@ -1,8 +1,6 @@
 import './App.css';
 import React, {useState} from 'react'
 import InputField from './components/InputField';
-import { Todo } from './types/types';
-import SingleTodo from './components/SingleTodo';
 import TodoList from './components/TodoList';
 
 import { useTodos } from './redux/sliceTodos';
@@ -14,16 +12,7 @@ const App: React.FC = () => {
 
   const [todo, setTodo] = useState<string>("")
 
-  const dispatch = useDispatch()
-  //const [todos, setTodos] = useState<Todo[]>([])
-
-  /* function handleCreateTodo(e:React.FormEvent) {
-    e.preventDefault();
-    if(todo)
-    setTodos([...todos, {id:Date.now(),todo,isDone:false}])
-  } */
-
-  console.log(todos)
+  const dispatch = useDispatch()    
 
   return (
     <div className="App">

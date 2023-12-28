@@ -3,7 +3,7 @@ import { Todos } from "../types/types";
 import { AiFillEdit } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
 import { AiFillDelete } from "react-icons/ai";
-import { removeTodo, useTodos } from '../redux/sliceTodos';
+import { removeTodo, isDoneTodo, editTodo, useTodos } from '../redux/sliceTodos';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -13,42 +13,26 @@ interface SingleTodoProps {
 }
 
 const SingleTodo = ({ todo }: SingleTodoProps) => {
-
-  const todos = useSelector(useTodos)
+  
   const dispatch = useDispatch()
 
   const [edit, setEdit] = useState<boolean>(false)
-  const [editTodo, setEditTodo] = useState<string>("")
+  const [editTodoState, setEditTodoState] = useState<string>("")
 
 
-/*   function handleDelete(id: number) {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  }
-
-  function handleIsDone(id: number) {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      )
-    );
-  } */
-
-/*   function handleEditTodo(e:React.FormEvent, id: number) {
+  function handleEditTodo(e:React.FormEvent, id: number) {
     e.preventDefault()
-
-    setTodos(todos.map((todo) => (
-      todo.id === id ? {...todo, todo: editTodo} : todo
-    )))
+    dispatch(editTodo([editTodoState, id]))
     setEdit(false)
-  } */
+  } 
 
   return (
     <>
-     <form className="todos__single" /* onSubmit={(e) => handleEditTodo(e, todo.id)} */>
+     <form className="todos__single"  onSubmit={(e) => handleEditTodo(e, todo.id)} >
     {
       edit ?
       (
-        <input type="text" /* value={editTodo} onChange={(e) => setEditTodo(e.target.value)} *//>
+        <input type="text"  value={editTodoState} onChange={(e) => setEditTodoState(e.target.value)} />
       ) : todo.isDone ? (
         <s className="todos__single--text">{todo.name} </s>
       ) : (
@@ -58,10 +42,10 @@ const SingleTodo = ({ todo }: SingleTodoProps) => {
     
       <div>
         <span className="icon">
-          <AiFillEdit /* onClick={() => setEdit(true)} *//>
+          <AiFillEdit  onClick={() => setEdit(true)} />
         </span>
         <span className="icon">
-          <MdDone /* onClick={() => handleIsDone(todo.id)}  *//>
+          <MdDone  onClick={() => dispatch(isDoneTodo(todo.id))} />
         </span>
         <span className="icon">
           <AiFillDelete  onClick={() => {dispatch(removeTodo(todo.id))}}  />

@@ -1,5 +1,3 @@
-import React from 'react'
-import { Todo } from '../types/types'
 import SingleTodo from './SingleTodo';
 import { Todos } from '../types/types';
 

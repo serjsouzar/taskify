@@ -1,11 +1,12 @@
 import React, {useRef} from "react";
 import "./styles.css";
 import { addTodo } from "../redux/sliceTodos";
+import { Dispatch } from "redux";
 
 interface InputProps {
   todo: string;
   setTodo: React.Dispatch<React.SetStateAction<string>>;
-  dispatch: any //high order function assignation
+  dispatch: Dispatch
 }
 
 const InputField = ({ todo, setTodo, dispatch }: InputProps) => {
