@@ -1,17 +1,18 @@
 import React from 'react'
 import { Todo } from '../types/types'
 import SingleTodo from './SingleTodo';
+import { Todos } from '../types/types';
 
 interface TodoListProps {
-  todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  todos: Todos[]  
 }
 
-const TodoList = ({todos, setTodos}: TodoListProps) => {
+const TodoList = ({todos}: TodoListProps) => {  
+
   return (
     <div className='todos'>
       {todos.map((todo) => (
-        <SingleTodo todo={todo} todos={todos} setTodos={setTodos}/>
+        <SingleTodo todo={todo} todos={todos}/>
       ))}
     </div>
   )

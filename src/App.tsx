@@ -5,24 +5,31 @@ import { Todo } from './types/types';
 import SingleTodo from './components/SingleTodo';
 import TodoList from './components/TodoList';
 
+import { useTodos } from './redux/sliceTodos';
+import { useDispatch, useSelector } from 'react-redux';
+
 const App: React.FC = () => {
 
-  const [todo, setTodo] = useState<string>("")
-  const [todos, setTodos] = useState<Todo[]>([])
+  const todos = useSelector(useTodos)
 
-  function handleCreateTodo(e:React.FormEvent) {
+  const [todo, setTodo] = useState<string>("")
+
+  const dispatch = useDispatch()
+  //const [todos, setTodos] = useState<Todo[]>([])
+
+  /* function handleCreateTodo(e:React.FormEvent) {
     e.preventDefault();
     if(todo)
     setTodos([...todos, {id:Date.now(),todo,isDone:false}])
-  }
+  } */
 
   console.log(todos)
 
   return (
     <div className="App">
       <span className='heading'>Taskify</span>
-      <InputField todo={todo} setTodo={setTodo} handleCreateTodo={handleCreateTodo}/>
-      <TodoList todos={todos} setTodos={setTodos} />
+      <InputField todo={todo} setTodo={setTodo} dispatch={dispatch}/>
+      <TodoList todos={todos} />
     </div>
   );
 }

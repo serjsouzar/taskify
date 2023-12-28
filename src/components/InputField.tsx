@@ -1,20 +1,23 @@
 import React, {useRef} from "react";
 import "./styles.css";
+import { addTodo } from "../redux/sliceTodos";
 
 interface InputProps {
   todo: string;
   setTodo: React.Dispatch<React.SetStateAction<string>>;
-  handleCreateTodo: (e: React.FormEvent) => void;
+  dispatch: any //high order function assignation
 }
 
-const InputField = ({ todo, setTodo, handleCreateTodo }: InputProps) => {
+const InputField = ({ todo, setTodo, dispatch }: InputProps) => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
   return (
     <form className="input" onSubmit={(e) => {
-        handleCreateTodo(e)
-        inputRef.current?.blur()  
+        e.preventDefault()
+        dispatch(addTodo(todo))
+        inputRef.current?.blur()
+        setTodo("")  
         }}>
       <input
         ref={inputRef}

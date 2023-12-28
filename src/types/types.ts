@@ -3,3 +3,9 @@ export interface Todo {
   todo: string;
   isDone: boolean
 }
+
+export interface Todos {
+  name: string;
+  isDone: boolean;
+  id: number;
+}1
